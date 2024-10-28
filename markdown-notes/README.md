@@ -1,8 +1,20 @@
-# React + Vite
+# App Notes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### history :
+Doing Scrimba React course for free. Came accross this notes project. It was half built with bugs. So working on them to fix the bugs and implement some new features.
 
-Currently, two official plugins are available:
+### Bugs and New Features :
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. First of all, had a hard time running it in my local machine. Dependencies did not match since i have react 18v and all the packages it has are for 17. So had to downgrade to 17 first. Then install all the packages like mde ,splt, showdown, etc.
+
+2. Then the App was not in sync with local storage. On refresh all data was gone. So synced it in with local storage. Also had to add lazy state so it doesn't call local storage every rendering. Later we will use firebase. 
+
+3. Added functionality to bump up the last edited note on top of the list for better UX.
+
+4. Added a delete button to delete notes.
+
+
+# Notes to myself (developer)
+
+Go thorough the codes again and add comments for better understanding. Understand the logics. Ymmaarraa!!!!!"
+
