@@ -18,3 +18,5 @@ Doing Scrimba React course for free. Came accross this notes project. It was hal
 
 Go thorough the codes again and add comments for better understanding. Understand the logics. Ymmaarraa!!!!!"
 
+### Update 
+Went through the code. changed currentNote function to variable since its easier. React 18 update doesn't work with ild reactMd. So either use react 17 with old md library or 18 where i have to create the heading o reditor. Going with the v17.

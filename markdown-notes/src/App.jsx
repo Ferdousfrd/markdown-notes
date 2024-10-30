@@ -11,6 +11,9 @@ export default function App() {
     const [currentNoteId, setCurrentNoteId] = React.useState(
         (notes[0] && notes[0].id) || ""
     )
+
+    // .find method goes thro the notes array to find the first note that matches current id. returns a note obj of matches
+    const currentNote = notes.find(note => note.id === currentNoteId) || notes[0]
     
     React.useEffect(() => {
         localStorage.setItem("notes", JSON.stringify(notes))
@@ -45,13 +48,7 @@ export default function App() {
         event.stopPropagation()
         setNotes(oldNotes => oldNotes.filter(note => note.id !== noteId))
     }
-    
-    function findCurrentNote() {
-        return notes.find(note => {
-            return note.id === currentNoteId
-        }) || notes[0]
-    }
-    
+        
     return (
         <main>
         {
@@ -64,7 +61,7 @@ export default function App() {
             >
                 <Sidebar
                     notes={notes}
-                    currentNote={findCurrentNote()}
+                    currentNote={currentNote}
                     setCurrentNoteId={setCurrentNoteId}
                     newNote={createNewNote}
                     deleteNote={deleteNote}
@@ -73,7 +70,7 @@ export default function App() {
                     currentNoteId && 
                     notes.length > 0 &&
                     <Editor 
-                        currentNote={findCurrentNote()} 
+                        currentNote={currentNote} 
                         updateNote={updateNote} 
                     />
                 }
