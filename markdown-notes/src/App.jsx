@@ -1,52 +1,55 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Sidebar from "./components/Sidebar"
 import Editor from "./components/Editor"
 import Split from "react-split";
-import {nanoid} from "nanoid"
+import { onSnapshot, addDoc, doc, deleteDoc, setDoc } from "firebase/firestore";
+import { notesCollection, db } from "./config/firebase";
 
 export default function App() {
-    const [notes, setNotes] = React.useState(
-        () => JSON.parse(localStorage.getItem("notes")) || []
-    )
-    const [currentNoteId, setCurrentNoteId] = React.useState(
-        (notes[0] && notes[0].id) || ""
-    )
+    const [notes, setNotes] = React.useState([])
+    const [currentNoteId, setCurrentNoteId] = React.useState("")
+
+    console.log(currentNoteId)
 
     // .find method goes thro the notes array to find the first note that matches current id. returns a note obj of matches
     const currentNote = notes.find(note => note.id === currentNoteId) || notes[0]
     
     React.useEffect(() => {
-        localStorage.setItem("notes", JSON.stringify(notes))
+        const unsubscribe = onSnapshot(notesCollection, function(snapshot){     // creating a function to give us the updated snap or data in firebase store collection when event listener gets triggered
+            const notesArray = snapshot.docs.map(doc =>{                        // we create a new array obj with the updated data using map
+                return {
+                    ...doc.data(),                                              // this would be the body of the data 
+                    id : doc.id                                                 // setting id 
+                }
+            })
+            setNotes(notesArray)                                                // setting the notes state with our new array 
+        })
+        return unsubscribe                                                      // to clean up or stop the event listener on unmount
+    }, [])
+
+    useEffect(()=>{
+        if(!currentNoteId){
+            setCurrentNoteId(notes[0]?.id)                                      
+        }
     }, [notes])
     
-    function createNewNote() {
+    async function createNewNote() {
         const newNote = {
-            id: nanoid(),
             body: "# Type your markdown note's title here"
         }
-        setNotes(prevNotes => [newNote, ...prevNotes])
-        setCurrentNoteId(newNote.id)
+
+        const newNoteRef = await addDoc(notesCollection, newNote)               // addDoc returns a promise so used await async. and the returned promise would be a refrence to our newly created note document
+        setCurrentNoteId(newNoteRef.id)
     }
     
-    function updateNote(text) {
-        setNotes(oldNotes => {
-            const newArray = []
-            for(let i = 0; i < oldNotes.length; i++) {
-                const oldNote = oldNotes[i]
-                if(oldNote.id === currentNoteId) {
-                    // Put the most recently-modified note at the top
-                    newArray.unshift({ ...oldNote, body: text })
-                } else {
-                    newArray.push(oldNote)
-                }
-            }
-            return newArray
-        })
+    async function updateNote(text) {
+        const refTask = doc(db, "notes", currentNoteId)             // target the task or doc we updating
+        await setDoc(refTask, { body:text }, { merge: true })       // push it to our db with setDoc emthod. it takes the refTask, what to update 
     }
     
-    function deleteNote(event, noteId) {
-        event.stopPropagation()
-        setNotes(oldNotes => oldNotes.filter(note => note.id !== noteId))
+    async function deleteNote(noteId) {
+        const deleteTaskRef = doc(db, "notes", noteId)              // target or get the duccement or the task we want to delete. doc method returns the refrence to our targeted document 
+        await deleteDoc(deleteTaskRef)                              // delete from the database. deleteDoc returns a promise
     }
         
     return (
@@ -67,12 +70,10 @@ export default function App() {
                     deleteNote={deleteNote}
                 />
                 {
-                    currentNoteId && 
-                    notes.length > 0 &&
-                    <Editor 
-                        currentNote={currentNote} 
-                        updateNote={updateNote} 
-                    />
+                <Editor 
+                    currentNote={currentNote} 
+                    updateNote={updateNote} 
+                />
                 }
             </Split>
             :
