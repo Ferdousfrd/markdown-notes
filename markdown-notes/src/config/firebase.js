@@ -15,6 +15,6 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);                  // Initialize Firebase
-export const db = getFirestore(app)                                // get the instance associated with our app and store it in db
+export const db = getFirestore(app)                         // get the instance associated with our app and store it in db
 export const notesCollection = collection(db, "notes")      // creates a refrence to our notes collection
 

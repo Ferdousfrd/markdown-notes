@@ -20,3 +20,10 @@ Go thorough the codes again and add comments for better understanding. Understan
 
 ### Update 
 Went through the code. changed currentNote function to variable since its easier. React 18 update doesn't work with ild reactMd. So either use react 17 with old md library or 18 where i have to create the heading o reditor. Going with the v17.
+
+
+## Notes on updates or new features made : 
+...
+
+4. Debouching :
+Since we are sending requests to firebase every single stroke, its a lot. To control it we can try Debouncing method to delay the request for specified amount of time. For example, it will delay 500 mili second when we send request to firebase. in these 500 ms if another req happens then it will stop that and reset the 500 ms. This until we stop typing and 500ms passes without any signal, the request will go trough.

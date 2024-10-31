@@ -9,12 +9,15 @@ export default function App() {
     const [notes, setNotes] = React.useState([])
     const [currentNoteId, setCurrentNoteId] = React.useState("")
 
-    console.log(currentNoteId)
+    const sortedNotes = notes.sort((a,b) => {                   // sorting the notes from recnt updated to old ones
+        return new Date(b.updatedAt) - new Date(a.updatedAt)
+    })
+
 
     // .find method goes thro the notes array to find the first note that matches current id. returns a note obj of matches
     const currentNote = notes.find(note => note.id === currentNoteId) || notes[0]
     
-    React.useEffect(() => {
+    useEffect(() => {
         const unsubscribe = onSnapshot(notesCollection, function(snapshot){     // creating a function to give us the updated snap or data in firebase store collection when event listener gets triggered
             const notesArray = snapshot.docs.map(doc =>{                        // we create a new array obj with the updated data using map
                 return {
@@ -35,7 +38,9 @@ export default function App() {
     
     async function createNewNote() {
         const newNote = {
-            body: "# Type your markdown note's title here"
+            body: "# Type your markdown note's title here",
+            createdAt : Date.now(),
+            updatedAt : Date.now()
         }
 
         const newNoteRef = await addDoc(notesCollection, newNote)               // addDoc returns a promise so used await async. and the returned promise would be a refrence to our newly created note document
@@ -44,7 +49,7 @@ export default function App() {
     
     async function updateNote(text) {
         const refTask = doc(db, "notes", currentNoteId)             // target the task or doc we updating
-        await setDoc(refTask, { body:text }, { merge: true })       // push it to our db with setDoc emthod. it takes the refTask, what to update 
+        await setDoc(refTask, { body:text, updatedAt:Date.now() }, { merge: true })       // push it to our db with setDoc emthod. it takes the refTask, what to update 
     }
     
     async function deleteNote(noteId) {
@@ -63,7 +68,7 @@ export default function App() {
                 className="split"
             >
                 <Sidebar
-                    notes={notes}
+                    notes={sortedNotes}
                     currentNote={currentNote}
                     setCurrentNoteId={setCurrentNoteId}
                     newNote={createNewNote}
