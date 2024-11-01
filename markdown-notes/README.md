@@ -17,6 +17,7 @@ Doing Scrimba React course for free. Came accross this notes project. It was hal
 # Notes to myself (developer)
 
 Go thorough the codes again and add comments for better understanding. Understand the logics. Ymmaarraa!!!!!"
+= Done twice :3
 
 ### Update 
 Went through the code. changed currentNote function to variable since its easier. React 18 update doesn't work with ild reactMd. So either use react 17 with old md library or 18 where i have to create the heading o reditor. Going with the v17.
@@ -24,6 +25,21 @@ Went through the code. changed currentNote function to variable since its easier
 
 ## Notes on updates or new features made : 
 ...
+1. Bug fixing :
+At first the project main bug was on refresh it didnt save or store any data. So added localstorage to save data. Added lazy state initialization so app doessnt call localstorage every key stroke or every single state change.
+
+2. New features :
+Deleting note and bump the recent updated note on top by sorted.
+Added deleteNote function with noteId parameter. Filtered out the notes that doesnt match the id. Also used event.stopPropagation() so the prevent from parent enevt handler to occur.
+
+3. Firebase cloud storage : to replace localstorage
+Created an app in firebase website and a db instance. Copied the configuration and did the setup.
+
+- used onSnapshot to sync the firebase and our app ui. we dont want 2 kinds of truth. onSnapshot gets trigered when something changes and under the hood it send signal to our db in firebase and if successful the changes things if not that means nothing change n db so it will prevent any changes in local UI.
+
+- addDoc to create and push new note to or db. deleteDoc to delete the note with the given id in parameter. sertDoc to update a note.
+
+- sorted the notes from recent updated ro old ones by adding created at and update at time.s
 
 4. Debouching :
 Since we are sending requests to firebase every single stroke, its a lot. To control it we can try Debouncing method to delay the request for specified amount of time. For example, it will delay 500 mili second when we send request to firebase. in these 500 ms if another req happens then it will stop that and reset the 500 ms. This until we stop typing and 500ms passes without any signal, the request will go trough.
