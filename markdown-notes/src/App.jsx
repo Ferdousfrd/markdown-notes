@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import Sidebar from "./components/Sidebar"
 import Editor from "./components/Editor"
 import Split from "react-split";
@@ -6,8 +6,9 @@ import { onSnapshot, addDoc, doc, deleteDoc, setDoc } from "firebase/firestore";
 import { notesCollection, db } from "./config/firebase";
 
 export default function App() {
-    const [notes, setNotes] = React.useState([])
-    const [currentNoteId, setCurrentNoteId] = React.useState("")
+    const [notes, setNotes] = useState([])
+    const [currentNoteId, setCurrentNoteId] = useState("")
+    const [tempNoteText, setTempNoteText] = useState("")
 
     const sortedNotes = notes.sort((a,b) => {                   // sorting the notes from recnt updated to old ones
         return new Date(b.updatedAt) - new Date(a.updatedAt)
@@ -35,6 +36,19 @@ export default function App() {
             setCurrentNoteId(notes[0]?.id)                                      
         }
     }, [notes])
+
+    useEffect(()=>{                                         // setting the tempNoteText to our currentNote updates to see realtime update in editor but not sending the data to firebase
+        if(currentNote){
+            setTempNoteText(currentNote.body)
+        }
+    },[currentNote])
+
+    useEffect(()=>{                                     // debouncing so firebase doesnt write every keystroke.
+        const timeoutId = setTimeout(()=>{
+            updateNote(tempNoteText)
+        }, 500)
+        return ()=> clearTimeout(timeoutId)             // clearing out the effect and reseting the timer for delay
+    }, [tempNoteText])
     
     async function createNewNote() {
         const newNote = {
@@ -76,8 +90,8 @@ export default function App() {
                 />
                 {
                 <Editor 
-                    currentNote={currentNote} 
-                    updateNote={updateNote} 
+                    tempNoteText={tempNoteText} 
+                    setTempNoteText={setTempNoteText} 
                 />
                 }
             </Split>
