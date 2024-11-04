@@ -1,4 +1,5 @@
 import React from "react"
+import logo from "../assets/take.png"
 
 export default function Sidebar(props) {
     const noteElements = props.notes.map((note) => (
@@ -23,8 +24,9 @@ export default function Sidebar(props) {
 
     return (
         <section className="pane sidebar">
-            <div className="sidebar--header">
-                <h3>Notes</h3>
+            <div className="sidebar--header">               
+                <img src={logo} />
+                <h3>NotePad</h3>
                 <button className="new-note" onClick={props.newNote}>+</button>
             </div>
             {noteElements}

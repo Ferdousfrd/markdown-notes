@@ -53,4 +53,6 @@ Since we are sending requests to firebase every single stroke, its a lot. To con
 
 # implementing download the  note file to my local system or email it somewhere
 1. first added the button in Editor component. Depending on the showDownoadOption stat, the button will toggle between Download btn and .txt or .pdf options btns.
+    - .txt file download done. Used BIOB obj and URL creation and download. working fine.
+    - .pdf download adding. Needed to install 'jspdf' library to create pdf from notes.
 2. 

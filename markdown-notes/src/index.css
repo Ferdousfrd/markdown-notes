@@ -40,6 +40,10 @@ button:focus {
   font-size: 1.75rem;
 }
 
+.sidebar--header img{
+  width: 60px;
+}
+
 .new-note {
   cursor: pointer;
   background-color: #4A4E74;
@@ -47,7 +51,7 @@ button:focus {
   color: white;
   border-radius: 3px;
   height: 30px;
-  width:fit-content
+  width:40px
 }
 
 .first-note {
@@ -64,15 +68,30 @@ button:focus {
   height: 100vh;
 }
 
-.downloader{
-  cursor: pointer;
-  background-color: #4A4E74;
-  border: none;
-  color: white;
-  border-radius: 3px;
-  height: 30px;
-  width:30;
-  margin:3px
+.downloader {
+  background-color: #4A4E74; 
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 10px 20px; /* Some padding */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* No underline */
+  display: inline-block; /* Inline block */
+  font-size: 16px; /* Bigger font */
+  margin: 4px 2px; /* Margin around the buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Transition effect on hover */
+}
+
+.downloader:hover {
+  background-color: #091450; /* Darker green on hover */
+}
+
+.hint-message {
+  font-size: 14px; /* Smaller font for hint */
+  color: #555; /* Dark gray color */
+  margin-top: 10px; /* Margin above the hint */
+  font-style: italic; /* Italic text */
 }
 
 .title {
