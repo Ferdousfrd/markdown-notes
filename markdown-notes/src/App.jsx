@@ -90,10 +90,12 @@ export default function App() {
                     deleteNote={deleteNote}
                 />
                 {
-                <Editor 
-                    tempNoteText={tempNoteText} 
-                    setTempNoteText={setTempNoteText} 
-                />
+                <div className="pane"> {/* Add the .pane class here */}
+                    <Editor 
+                        tempNoteText={tempNoteText} 
+                        setTempNoteText={setTempNoteText} 
+                    />
+                </div>
                 }
 
             </Split>

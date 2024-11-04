@@ -32,16 +32,19 @@ button:focus {
 
 .sidebar--header {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .sidebar--header > h3 {
   font-size: 1.75rem;
+  margin-left: 15px;
+  margin-right: 20px;
 }
 
 .sidebar--header img{
   width: 60px;
+  margin-left: 20px;
 }
 
 .new-note {
@@ -225,3 +228,13 @@ button:focus {
   top: -7px;
   left: -2px
 } 
+
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+  .pane {
+    padding: 10px; /* Adjust padding for smaller screens */
+    font-size: 14px; /* Smaller font size for readability */
+  }
+
+  /* Adjust other styles as necessary */
+}
