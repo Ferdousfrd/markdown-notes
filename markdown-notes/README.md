@@ -43,3 +43,14 @@ Created an app in firebase website and a db instance. Copied the configuration a
 
 4. Debouching :
 Since we are sending requests to firebase every single stroke, its a lot. To control it we can try Debouncing method to delay the request for specified amount of time. For example, it will delay 500 mili second when we send request to firebase. in these 500 ms if another req happens then it will stop that and reset the 500 ms. This until we stop typing and 500ms passes without any signal, the request will go trough.
+
+
+
+### new features i wanna work on
+- download the  note file to my local system or email it somewhere
+- make it an extension for chrome
+- try to put it in google store
+
+# implementing download the  note file to my local system or email it somewhere
+1. first added the button in Editor component. Depending on the showDownoadOption stat, the button will toggle between Download btn and .txt or .pdf options btns.
+2. 

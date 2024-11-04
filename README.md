@@ -5,9 +5,9 @@ A simple and intuitive Markdown editor that allows users to create, edit, and ma
 ## Features
 
 - Create, edit, and delete notes.
-- Real-time Markdown preview.
+- Real-time Markdown preview and converter.
 - User-friendly interface with split view for editing and previewing.
-- Store notes locally using browser's local storage.
+- Store notes with firebase clour storage.
 
 ## Technologies Used
 
@@ -15,6 +15,7 @@ A simple and intuitive Markdown editor that allows users to create, edit, and ma
 - **React-MDE**: A Markdown editor for React.
 - **Showdown**: A Markdown to HTML converter.
 - **Vite**: A fast build tool that provides a great development experience.
+- **Firebase**: Cloud storage for the notes storage.
 
 ## Getting Started
 

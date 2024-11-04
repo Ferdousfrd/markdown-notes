@@ -70,6 +70,7 @@ export default function App() {
         const deleteTaskRef = doc(db, "notes", noteId)              // target or get the duccement or the task we want to delete. doc method returns the refrence to our targeted document 
         await deleteDoc(deleteTaskRef)                              // delete from the database. deleteDoc returns a promise
     }
+
         
     return (
         <main>
@@ -94,6 +95,7 @@ export default function App() {
                     setTempNoteText={setTempNoteText} 
                 />
                 }
+
             </Split>
             :
             <div className="no-notes">
